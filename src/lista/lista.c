@@ -6,9 +6,9 @@
 
 /********************************* Inserir ***********************************************/
 
-void inserir(Lista *lista_encadeada)
+void inserir(Lista *memoria)
 {
-    if (lista_encadeada->tam >= 1000)
+    if (memoria->tam >= 1000)
     {
         printf("Poxa, a lista já está cheia... Remova algum arquivo primeiro :(");
         sleep(3);
@@ -37,22 +37,22 @@ INICIO:
             No *novo_no = (No *)malloc(sizeof(No)); // define o próximo nó
 
             strcpy(novo_no->arquivo, bloco);
-            strcpy(novo_no->nome_arquivo, nome_arquivo);
+            //strcpy(novo_no->nome_arquivo, nome_arquivo);
 
-            novo_no->prox = NULL;
+            novo_no->indice = NULL;
 
-            if (lista_encadeada->tam == 0)
+            if (memoria->tam == 0)
             {
-                lista_encadeada->cab = novo_no;
-                lista_encadeada->ret = lista_encadeada->cab;
+                memoria->cab = novo_no;
+                memoria->ret = memoria->cab;
             }
             else
             {
-                lista_encadeada->ret->prox = novo_no;
-                lista_encadeada->ret = novo_no;
+                memoria->ret->indice = novo_no;
+                memoria->ret = novo_no;
             }
 
-            lista_encadeada->tam++;
+            memoria->tam++;
         }
         printf("Arquivo inserido perfeitamente! :)\n");
         sleep(3);
@@ -75,11 +75,11 @@ void remover(Lista *lista_encadeada, int menu)
 
 /********************************* Buscar ***********************************************/
 
-StructBusca *buscar(Lista *lista_encadeada, int menu)
+StructBusca *buscar(Lista *memoria, int menu)
 {
     char chave[50];
     StructBusca * remove_arquivo = (StructBusca *)malloc(sizeof(StructBusca));
-    No *no_atual = lista_encadeada->cab;
+    No *no_atual = memoria->cab;
     No *no_anterior = NULL;
 
     system("clear");
@@ -96,12 +96,12 @@ StructBusca *buscar(Lista *lista_encadeada, int menu)
 
     while (no_atual != NULL && strcmp(no_atual->nome_arquivo, chave) != 0)
         no_anterior = no_atual;
-        no_atual = no_atual -> prox;
+        no_atual = no_atual -> indice;
 
     if (no_atual != NULL)
     {
         if (menu == 3)
-            printar_arquivo(lista_encadeada, no_atual);
+            printar_arquivo(memoria, no_atual);
         if(menu == 2)
         {
             printf("\nArquivo encontrado...");
@@ -130,7 +130,7 @@ void printar(Lista *lista_encadeada)
     {
         printf("-> Nó %d\nNome do arquivo: %s\nEndereço: %p\n", cont, cab->nome_arquivo, cab);
         printf("Conteúdo do arquivo: %s\n\n", cab->arquivo);
-        cab = cab->prox;
+        cab = cab->indice;
         cont++;
     }
     printf("\nTamanho da lista: %d\n\n", lista_encadeada->tam);
