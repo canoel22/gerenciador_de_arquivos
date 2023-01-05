@@ -7,10 +7,9 @@
 
 /******************************* Estruturas ***********************************************/
 
-typedef struct _no {    //estrutura de cada nó
-    char nome_arquivo[50];
+typedef struct bloco {    //estrutura de cada nó
     char arquivo[100];
-    struct _no* prox;
+    int indice; 
 } No;
 
 typedef struct{     //estrutura da lista (cabeça e retaguarda)
