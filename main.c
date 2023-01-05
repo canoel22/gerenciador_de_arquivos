@@ -2,7 +2,7 @@
 #include "./src/lista/lista.h"
 #include "./src/menu/menu.h"
 
-Fita *memoria;
+Fita memoria;
 
 int main()
 {

@@ -9,12 +9,12 @@ extern Fita *memoria;
 
 void inserir()
 {
-    /*if (memoria->tam >= 1000)
+    if (memoria->ocupado >= TAM_MEMORIA)
     {
         printf("Poxa, a lista já está cheia... Remova algum arquivo primeiro :(");
         sleep(3);
         return;
-    }*/
+    }
 
     char bloco[100];
     char nome_arquivo[50];
@@ -51,9 +51,9 @@ INICIO:
             {
                 memoria->ret->indice = novo_no;
                 memoria->ret = novo_no;
-            }
+            }*/
 
-            memoria->tam++;*/
+            memoria->ocupado++;
         }
         printf("Arquivo inserido perfeitamente! :)\n");
         sleep(3);
@@ -123,19 +123,19 @@ StructBusca *buscar(int menu)
 void printar()
 {
     system("clear");
+    int cont = 0;
 
-    /*No *cab = lista_encadeada->cab;
-    int cont = 1;
-
-    while (cab != NULL)
+    while (memoria->blocos[cont]->indice_prox > TAM_MEMORIA)
     {
-        printf("-> Nó %d\nNome do arquivo: %s\nEndereço: %p\n", cont, cab->nome_arquivo, cab);
-        printf("Conteúdo do arquivo: %s\n\n", cab->arquivo);
-        cab = cab->indice;
+        if (memoria->blocos != NULL){
+        printf("-> Bloco %d\nNome do arquivo: %s\nEndereço: %p\n", cont, memoria->blocos[cont]->nome_arquivo, memoria->blocos);
+        printf("Conteúdo do arquivo: %s\n\n", memoria->blocos[cont]->arquivo);
         cont++;
+        memoria->ocupado++;
+        }
     }
-    printf("\nTamanho da lista: %d\n\n", lista_encadeada->tam);
-*/
+    printf("\nPorcentagem ocupada de memória: %d\n\n", memoria->ocupado);
+
     printf("\n\nDigite enter para sair.");
     scanf("%*c");
     getchar();

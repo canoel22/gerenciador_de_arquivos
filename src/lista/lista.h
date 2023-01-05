@@ -10,14 +10,14 @@
 
 /******************************* Estruturas ***********************************************/
 
-typedef struct no {    //estrutura de cada bloco de memória
+typedef struct{    //estrutura de cada bloco de memória
     char arquivo[TAM_ARQUIVO];
     char nome_arquivo[50];
     int indice_prox; 
 } Bloco;
 
 typedef struct{     //estrutura da fita de memória
-   Bloco blocos[TAM_MEMORIA];
+   Bloco* blocos[TAM_MEMORIA];
    int ocupado;
 } Fita;
 
