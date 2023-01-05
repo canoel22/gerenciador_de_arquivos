@@ -7,29 +7,28 @@
 
 /******************************* Estruturas ***********************************************/
 
-typedef struct bloco {    //estrutura de cada nó
+typedef struct no {    //estrutura de cada bloco de memória
     char arquivo[100];
     int indice; 
-} No;
+} Bloco;
 
-typedef struct{     //estrutura da lista (cabeça e retaguarda)
-    No* cab;
-    No* ret;
-    int tam;
-} Lista;
+typedef struct{     //estrutura da fita de memória
+   int tam;
+   Bloco 
+} Fita;
 
 typedef struct {    //estrutura para a função de busca retornar dois nós
-    No* ant;
-    No* atual;
+    Bloco* ant;
+    Bloco* atual;
 } StructBusca;
 
 /********************************* Funções ***********************************************/
 
-void printar(Lista *lista_encadeada);
-void printar_arquivo(Lista *lista_encadeada, No *no_atual);
-void inserir(Lista* lista_encadeada);
-void remover(Lista* lista_encadeada, int menu);
-StructBusca *buscar(Lista* lista_encadeada, int menu);
-void printar_arquivo(Lista *lista_encadeada, No *no_atual);
+void printar(Fita *lista_encadeada);
+void printar_arquivo(Fita *lista_encadeada, Bloco *no_atual);
+void inserir(Fita* lista_encadeada);
+void remover(Fita* lista_encadeada, int menu);
+StructBusca *buscar(Fita* lista_encadeada, int menu);
+void printar_arquivo(Fita *lista_encadeada, bloco *no_atual);
 
 #endif

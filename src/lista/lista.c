@@ -6,7 +6,7 @@
 
 /********************************* Inserir ***********************************************/
 
-void inserir(Lista *memoria)
+void inserir(Fita *memoria)
 {
     if (memoria->tam >= 1000)
     {
@@ -34,7 +34,7 @@ INICIO:
         while (!feof(arquivo))
         {
             fgets(bloco, 100, arquivo);
-            No *novo_no = (No *)malloc(sizeof(No)); // define o próximo nó
+            Bloco *novo_no = (Bloco *)malloc(sizeof(No)); // define o próximo nó
 
             strcpy(novo_no->arquivo, bloco);
             //strcpy(novo_no->nome_arquivo, nome_arquivo);
@@ -65,7 +65,7 @@ INICIO:
 
 /********************************* Remover ***********************************************/
 
-void remover(Lista *lista_encadeada, int menu)
+void remover(Fita *lista_encadeada, int menu)
 {
     buscar(lista_encadeada, menu);
     printf("Arquivo removido perfeitamente! :)\n");
@@ -75,7 +75,7 @@ void remover(Lista *lista_encadeada, int menu)
 
 /********************************* Buscar ***********************************************/
 
-StructBusca *buscar(Lista *memoria, int menu)
+StructBusca *buscar(Fita *memoria, int menu)
 {
     char chave[50];
     StructBusca * remove_arquivo = (StructBusca *)malloc(sizeof(StructBusca));
@@ -119,7 +119,7 @@ StructBusca *buscar(Lista *memoria, int menu)
 
 /******************************* Imprimir a lista *********************************************/
 
-void printar(Lista *lista_encadeada)
+void printar(Fita *lista_encadeada)
 {
     system("clear");
 
@@ -144,7 +144,7 @@ void printar(Lista *lista_encadeada)
 
 
 
-void printar_arquivo(Lista *lista_encadeada, No *no_atual)
+void printar_arquivo(Fita *lista_encadeada, No *no_atual)
 {
     system ("clear");
     printf("Achei! O arquivo está aqui:\n");

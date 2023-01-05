@@ -6,6 +6,6 @@
 #include <stdlib.h>
 #include "../lista/lista.h"
 
-int tela_inicial(Lista *lista_encadeada);
+int tela_inicial(Fita *memoria);
 
 #endif

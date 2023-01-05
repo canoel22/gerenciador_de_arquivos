@@ -5,7 +5,7 @@
 
 /********************************* Menu ***********************************************/
 
-int tela_inicial(Lista *lista_encadeada)
+int tela_inicial(Fita *memoria)
 {
 
     int menu = 1;
@@ -19,19 +19,19 @@ int tela_inicial(Lista *lista_encadeada)
         switch (menu)
         {
         case 1:    
-            inserir(lista_encadeada);
+            inserir(memoria);
             break;
 
         case 2:
-            remover(lista_encadeada, menu);
+            remover(memoria, menu);
             break;
 
         case 3:
-            buscar(lista_encadeada, menu);
+            buscar(memoria, menu);
             break;
 
         case 4:
-            printar(lista_encadeada);
+            printar(memoria);
             break;
 
 
