@@ -5,30 +5,34 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#define TAM_ARQUIVO 100
+#define TAM_MEMORIA 100
+
 /******************************* Estruturas ***********************************************/
 
 typedef struct no {    //estrutura de cada bloco de memória
-    char arquivo[100];
-    int indice; 
+    char arquivo[TAM_ARQUIVO];
+    char nome_arquivo[50];
+    int indice_prox; 
 } Bloco;
 
 typedef struct{     //estrutura da fita de memória
-   int tam;
-   Bloco 
+   Bloco blocos[TAM_MEMORIA];
+   int ocupado;
 } Fita;
 
-typedef struct {    //estrutura para a função de busca retornar dois nós
+typedef struct {    //estrutura para a função de busca retornar dois blocos
     Bloco* ant;
     Bloco* atual;
 } StructBusca;
 
 /********************************* Funções ***********************************************/
 
-void printar(Fita *lista_encadeada);
-void printar_arquivo(Fita *lista_encadeada, Bloco *no_atual);
-void inserir(Fita* lista_encadeada);
-void remover(Fita* lista_encadeada, int menu);
-StructBusca *buscar(Fita* lista_encadeada, int menu);
-void printar_arquivo(Fita *lista_encadeada, bloco *no_atual);
+void printar();
+void printar_arquivo(Bloco *no_atual);
+void inserir();
+void remover(int menu);
+StructBusca *buscar(int menu);
+void printar_arquivo(Bloco *no_atual);
 
 #endif

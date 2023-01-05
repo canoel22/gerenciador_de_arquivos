@@ -6,6 +6,6 @@
 #include <stdlib.h>
 #include "../lista/lista.h"
 
-int tela_inicial(Fita *memoria);
+int tela_inicial();
 
 #endif

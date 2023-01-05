@@ -5,9 +5,8 @@
 
 /********************************* Menu ***********************************************/
 
-int tela_inicial(Fita *memoria)
+int tela_inicial()
 {
-
     int menu = 1;
     while (menu != 5)
     {
@@ -19,19 +18,19 @@ int tela_inicial(Fita *memoria)
         switch (menu)
         {
         case 1:    
-            inserir(memoria);
+            inserir();
             break;
 
         case 2:
-            remover(memoria, menu);
+            remover(menu);
             break;
 
         case 3:
-            buscar(memoria, menu);
+            buscar(menu);
             break;
 
         case 4:
-            printar(memoria);
+            printar();
             break;
 
 
