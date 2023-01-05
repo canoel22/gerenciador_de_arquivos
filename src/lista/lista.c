@@ -5,11 +5,10 @@
 #include <string.h>
 
 /********************************* Inserir ***********************************************/
-extern Fita *memoria;
 
-void inserir()
+void inserir(Lista *memoria)
 {
-    if (memoria->ocupado >= TAM_MEMORIA)
+    if (memoria->tam >= 1000)
     {
         printf("Poxa, a lista já está cheia... Remova algum arquivo primeiro :(");
         sleep(3);
@@ -35,14 +34,14 @@ INICIO:
         while (!feof(arquivo))
         {
             fgets(bloco, 100, arquivo);
-            Bloco *novo_no = (Bloco *)malloc(sizeof(Bloco)); // define o próximo nó
+            No *novo_no = (No *)malloc(sizeof(No)); // define o próximo nó
 
             strcpy(novo_no->arquivo, bloco);
             //strcpy(novo_no->nome_arquivo, nome_arquivo);
 
-            //novo_no->indice = NULL;
+            novo_no->indice = NULL;
 
-           /* if (memoria->tam == 0)
+            if (memoria->tam == 0)
             {
                 memoria->cab = novo_no;
                 memoria->ret = memoria->cab;
@@ -51,9 +50,9 @@ INICIO:
             {
                 memoria->ret->indice = novo_no;
                 memoria->ret = novo_no;
-            }*/
+            }
 
-            memoria->ocupado++;
+            memoria->tam++;
         }
         printf("Arquivo inserido perfeitamente! :)\n");
         sleep(3);
@@ -66,9 +65,9 @@ INICIO:
 
 /********************************* Remover ***********************************************/
 
-void remover(int menu)
+void remover(Lista *lista_encadeada, int menu)
 {
-    buscar(menu);
+    buscar(lista_encadeada, menu);
     printf("Arquivo removido perfeitamente! :)\n");
     sleep(3);
     
@@ -76,12 +75,12 @@ void remover(int menu)
 
 /********************************* Buscar ***********************************************/
 
-StructBusca *buscar(int menu)
+StructBusca *buscar(Lista *memoria, int menu)
 {
-    /*char chave[50];
+    char chave[50];
     StructBusca * remove_arquivo = (StructBusca *)malloc(sizeof(StructBusca));
-    Bloco *no_atual = memoria->cab;
-    Bloco *no_anterior = NULL;
+    No *no_atual = memoria->cab;
+    No *no_anterior = NULL;
 
     system("clear");
 
@@ -97,7 +96,7 @@ StructBusca *buscar(int menu)
 
     while (no_atual != NULL && strcmp(no_atual->nome_arquivo, chave) != 0)
         no_anterior = no_atual;
-       // no_atual = no_atual -> indice;
+        no_atual = no_atual -> indice;
 
     if (no_atual != NULL)
     {
@@ -112,29 +111,29 @@ StructBusca *buscar(int menu)
         }
     }
     else
-    {*/
+    {
         printf("O arquivo não está aqui :(\nQue tal procurar por outro?\n");
         sleep(4);
-    //}
+    }
 }
 
 /******************************* Imprimir a lista *********************************************/
 
-void printar()
+void printar(Lista *lista_encadeada)
 {
     system("clear");
-    int cont = 0;
 
-    while (memoria->blocos[cont]->indice_prox > TAM_MEMORIA)
+    No *cab = lista_encadeada->cab;
+    int cont = 1;
+
+    while (cab != NULL)
     {
-        if (memoria->blocos != NULL){
-        printf("-> Bloco %d\nNome do arquivo: %s\nEndereço: %p\n", cont, memoria->blocos[cont]->nome_arquivo, memoria->blocos);
-        printf("Conteúdo do arquivo: %s\n\n", memoria->blocos[cont]->arquivo);
+        printf("-> Nó %d\nNome do arquivo: %s\nEndereço: %p\n", cont, cab->nome_arquivo, cab);
+        printf("Conteúdo do arquivo: %s\n\n", cab->arquivo);
+        cab = cab->indice;
         cont++;
-        memoria->ocupado++;
-        }
     }
-    printf("\nPorcentagem ocupada de memória: %d\n\n", memoria->ocupado);
+    printf("\nTamanho da lista: %d\n\n", lista_encadeada->tam);
 
     printf("\n\nDigite enter para sair.");
     scanf("%*c");
@@ -145,7 +144,7 @@ void printar()
 
 
 
-void printar_arquivo(Bloco *no_atual)
+void printar_arquivo(Lista *lista_encadeada, No *no_atual)
 {
     system ("clear");
     printf("Achei! O arquivo está aqui:\n");
