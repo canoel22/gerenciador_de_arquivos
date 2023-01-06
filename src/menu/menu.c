@@ -5,7 +5,7 @@
 
 /********************************* Menu ***********************************************/
 
-int tela_inicial()
+int tela_inicial(Fita** memoria, int blocos_ocupados)
 {
     int menu = 1;
     while (menu != 5)
@@ -18,19 +18,19 @@ int tela_inicial()
         switch (menu)
         {
         case 1:    
-            inserir();
+            inserir(memoria, blocos_ocupados);
             break;
 
         case 2:
-            remover(menu);
+            remover(memoria, menu);
             break;
 
         case 3:
-            buscar(menu);
+            //buscar(memoria, menu);
             break;
 
         case 4:
-            printar();
+            printar(memoria);
             break;
 
 
