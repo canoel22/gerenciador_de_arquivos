@@ -23,13 +23,17 @@ int pode_inserir(Fita **memoria, FILE *arquivo, char *bloco, int blocos_ocupados
         cont++;
     }
 
-    if (cont <= (TAM_MEMORIA - blocos_ocupados))
+    fseek(arquivo, 0, SEEK_SET);
+
+    if (cont >= (TAM_MEMORIA - blocos_ocupados))
     {
-        return 1;
-    }
+        //printf("entrou no else");
+        return 0;
+    }    
     else
     {
-        return 0;
+        //printf("entrou no if");
+        return 1;
     }
 }
 
@@ -51,31 +55,32 @@ INICIO:
             sleep(2);
             goto INICIO;
         }
-        while (!feof(arquivo))
+        
+        if (pode_inserir(memoria, arquivo, bloco, blocos_ocupados))
         {
-            if (pode_inserir(memoria, arquivo, bloco, blocos_ocupados))
-            {
-                Fita *memoria = (Fita *)malloc(sizeof(Fita)); // define o próximo bloco
 
-                fseek(arquivo, 0, SEEK_SET); // move o cursor pro inicio do arquivo
-                fgets(bloco, TAM_BLOCO, arquivo);
+            while (fgets(bloco, TAM_BLOCO, arquivo)){
+                
+                Fita *memoria = (Fita *)malloc(sizeof(Fita)); // define o próximo bloco
 
                 strcpy(memoria->arquivo, bloco);
                 strcpy(memoria->nome_arquivo, nome_arquivo);
 
-                printf("Arquivo inserido perfeitamente! :)\n");
-                sleep(3);
-                system("clear");
-                break;
+                blocos_ocupados++;
             }
-            else
-            {
-                printf("Poxa, não tenho memória suficente pra inserir esse arquivo... Remova algum arquivo primeiro :(");
-                sleep(3);
-                return;
-            }
-            break;
+
+            printf("Arquivo inserido perfeitamente em %d blocos! :)\n", blocos_ocupados);
+            sleep(3);
+            system("clear");
+            return;
         }
+        else
+        {
+            printf("Poxa, não tenho memória suficente pra inserir esse arquivo... Remova algum arquivo primeiro :(");
+            sleep(3);
+            return;
+        }
+        break;
     } while (1);
 }
 

@@ -7,7 +7,7 @@ int main()
 {
     Fita *memoria[TAM_MEMORIA];
     limpar_memoria(memoria);
-    int blocos_ocupados;
+    int blocos_ocupados = 0;
 
     while (1)
     {
