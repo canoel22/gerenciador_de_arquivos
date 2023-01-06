@@ -25,15 +25,15 @@ int pode_inserir(Fita **memoria, FILE *arquivo, char *bloco, int blocos_ocupados
 
     fseek(arquivo, 0, SEEK_SET);
 
-    if (cont >= (TAM_MEMORIA - blocos_ocupados))
-    {
-        //printf("entrou no else");
-        return 0;
-    }    
-    else
+    if (cont <= (TAM_MEMORIA - blocos_ocupados)) //verifica se tem a qtd de blocos disponíveis pra inserir
     {
         //printf("entrou no if");
         return 1;
+    }    
+    else
+    {
+        //printf("entrou no else");
+        return 0;
     }
 }
 
