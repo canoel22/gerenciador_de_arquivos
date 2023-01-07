@@ -5,7 +5,7 @@
 
 /********************************* Menu ***********************************************/
 
-int tela_inicial(Fita** memoria, int blocos_ocupados)
+int tela_inicial(Fita** memoria, int *blocos_ocupados, Arquivos **lista)
 {
     int menu = 1;
     while (menu != 5)
@@ -18,7 +18,8 @@ int tela_inicial(Fita** memoria, int blocos_ocupados)
         switch (menu)
         {
         case 1:    
-            inserir(memoria, blocos_ocupados);
+            inserir(memoria, blocos_ocupados, lista);
+            printf("%d", *blocos_ocupados);
             break;
 
         case 2:
@@ -26,7 +27,7 @@ int tela_inicial(Fita** memoria, int blocos_ocupados)
             break;
 
         case 3:
-            //buscar(memoria, menu);
+            buscar(memoria, menu, lista);
             break;
 
         case 4:

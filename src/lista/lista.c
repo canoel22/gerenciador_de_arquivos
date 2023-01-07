@@ -13,77 +13,90 @@ void limpar_memoria(Fita **memoria)
 }
 
 /********************************* Inserir ***********************************************/
+void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista) {
 
-int pode_inserir(Fita **memoria, FILE *arquivo, char *bloco, int blocos_ocupados)
-{
+    char nome_arquivo[TAM_NOME];
+    char bloco[TAM_BLOCO];
     int cont = 0;
-
-    while (fgets(bloco, TAM_BLOCO, arquivo))
-    {
-        cont++;
-    }
-
-    fseek(arquivo, 0, SEEK_SET);
-
-    if (cont <= (TAM_MEMORIA - blocos_ocupados)) //verifica se tem a qtd de blocos disponíveis pra inserir
-    {
-        //printf("entrou no if");
-        return 1;
-    }    
-    else
-    {
-        //printf("entrou no else");
-        return 0;
-    }
-}
-
-void inserir(Fita **memoria, int blocos_ocupados)
-{
-    char bloco[100];
-    char nome_arquivo[50];
-INICIO:
+    FILE* arquivo;
     do
     {
         system("clear");
-        printf("\nDigite o nome do aquivo: ");
+        printf("Digite o nome do arquivo que deseja inserir: ");
         scanf("%s", nome_arquivo);
-        FILE *arquivo = fopen(nome_arquivo, "r");
+        arquivo = fopen(nome_arquivo, "r");
 
-        if (arquivo == NULL)
-        {
-            printf("Arquivo não encontrado... Tem certeza que colocou o nome certo?");
+        if (arquivo == NULL) {
+            printf("Arquivo não encontrado... Tem certeza que colocou o nome certo?\n");
             sleep(2);
-            goto INICIO;
+            continue;
         }
-        
-        if (pode_inserir(memoria, arquivo, bloco, blocos_ocupados))
-        {
 
-            while (fgets(bloco, TAM_BLOCO, arquivo)){
-                
-                Fita *memoria = (Fita *)malloc(sizeof(Fita)); // define o próximo bloco
+        while (!feof(arquivo)) {
+            fgets(bloco, TAM_BLOCO, arquivo);
+            *blocos_ocupados +=1;
+            cont++;
 
-                strcpy(memoria->arquivo, bloco);
-                strcpy(memoria->nome_arquivo, nome_arquivo);
-
-                blocos_ocupados++;
+            if(inserir_bloco(memoria, bloco, nome_arquivo, blocos_ocupados) == 0){
+                printf("A memória já está cheia...Que tal remover um arquivo antes? :(\n");
+                sleep(3);
+                fclose (arquivo);
+                return;
             }
-
-            printf("Arquivo inserido perfeitamente em %d blocos! :)\n", blocos_ocupados);
-            sleep(3);
-            system("clear");
-            return;
-        }
-        else
-        {
-            printf("Poxa, não tenho memória suficente pra inserir esse arquivo... Remova algum arquivo primeiro :(");
-            sleep(3);
-            return;
         }
         break;
     } while (1);
+
+    fclose(arquivo);
+
+    //passando os metadados do arquivo pra lista 2:
+
+    for (int i=0; i<TAM_MEMORIA; i++){
+        if (lista[i] == NULL){
+            Arquivos *novo_arquivo = (Arquivos*)malloc(sizeof(Arquivos));
+            strcpy(novo_arquivo-> nome_arquivo, nome_arquivo);
+            novo_arquivo -> qtd_blocos= cont;
+            novo_arquivo -> indice_inicial = arquivo_indice1;
+            break;
+        }
+    }
+
+    printf("Aquivo inserido perfeitamente! :)\n");
+    sleep(5);
+    system("clear");
+
 }
 
+
+int inserir_bloco(Fita** memoria, char* bloco, char* nome_arquivo, int *blocos_ocupados){
+    if (*blocos_ocupados == TAM_MEMORIA) {
+        return 0;
+    }
+
+    static int no_ant = 0;
+    int no_atual = 0;
+
+    while (no_atual < TAM_MEMORIA && memoria[no_atual]->arquivo != NULL) {
+        no_atual++;
+    }
+
+    memoria[no_atual] = (Fita*)malloc(sizeof(Fita));
+    strcpy(memoria[no_atual]->nome_arquivo, nome_arquivo);
+    strcpy(memoria[no_atual]->arquivo, bloco);
+
+    if (strcmp(memoria[no_atual]-> nome_arquivo,nome_arquivo) != 0) {
+        memoria[no_atual]-> indice_prox = -1;
+        no_ant = no_atual;
+        arquivo_indice1 = no_atual;
+    } else if (no_ant != no_atual) {
+        memoria[no_ant]->indice_prox = no_atual;
+        no_ant = no_atual;
+    }
+
+    blocos_ocupados += 1;
+    return 1;
+
+}
 /********************************* Remover ***********************************************/
 
 void remover(Fita **memoria, int menu)
@@ -95,12 +108,11 @@ void remover(Fita **memoria, int menu)
 
 /********************************* Buscar ***********************************************/
 
-/*StructBusca *buscar(Fita **memoria, int menu)
+int *buscar(Fita **memoria, int menu, Arquivos **lista)
 {
-   /* char chave[50];
-    StructBusca *remove_arquivo = (StructBusca *)malloc(sizeof(StructBusca));
-    No *no_atual = memoria->cab;
-    No *no_anterior = NULL;
+    char chave[50];
+    int i = 0;
+    Arquivos *no_atual = lista[i]; 
 
     system("clear");
 
@@ -111,31 +123,32 @@ void remover(Fita **memoria, int menu)
     {
         printf("\nA lista está vazia...\nQue tal adicionar um arquivo através da opção (1) do menu?\n");
         sleep(4);
-        return NULL;
+        return 0;
     }
 
     while (no_atual != NULL && strcmp(no_atual->nome_arquivo, chave) != 0)
-        no_anterior = no_atual;
-    no_atual = no_atual->indice;
+        no_atual[i]= no_atual[i+1];
 
     if (no_atual != NULL)
     {
-        if (menu == 3)
-            printar_arquivo(memoria, no_atual);
+        if (menu == 3){
+            //printar_arquivo(memoria, no_atual);
+            printf("achei o arquivo");
+        }
         if (menu == 2)
         {
-            printf("\nArquivo encontrado...");
-            remove_arquivo->ant = no_anterior;
+            printf("\nArquivo encontrado pra remoção...");
+            /*remove_arquivo->ant = no_anterior;
             remove_arquivo->atual = no_atual;
-            return remove_arquivo;
+            return remove_arquivo;*/
         }
     }
     else
     {
         printf("O arquivo não está aqui :(\nQue tal procurar por outro?\n");
         sleep(4);
-    }*/
-//}
+    }
+}
 
 /******************************* Imprimir a lista *********************************************/
 

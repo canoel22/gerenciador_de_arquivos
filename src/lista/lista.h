@@ -9,6 +9,8 @@
 #define TAM_NOME 50
 #define TAM_BLOCO 100
 
+static int arquivo_indice1;
+
 /******************************* Estruturas ***********************************************/
 
 typedef struct Bloco {    //estrutura de cada nó
@@ -18,20 +20,25 @@ typedef struct Bloco {    //estrutura de cada nó
 } Fita;
 
 
-/*typedef struct {    //estrutura para a função de busca retornar dois nós
-    No* ant;
-    No* atual;
-} StructBusca;*/
+typedef struct {    //estrutura para guardar informações do arquivo
+    int qtd_blocos;
+    char nome_arquivo[TAM_NOME];
+    int indice_inicial;
+} Arquivos;
 
 /********************************* Funções ***********************************************/
 
 void limpar_memoria(Fita** memoria);
-int pode_inserir(Fita **memoria, FILE *arquivo, char *bloco, int blocos_ocupado);
+
+void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista);
+int inserir_bloco(Fita** memoria, char* bloco, char* nome_arquivo, int* blocos_ocupados);
+
+int *buscar(Fita** memoria, int menu, Arquivos **lista);
+
 void printar(Fita **memoria);
 void printar_arquivo(Fita **memoria, Fita *no_atual);
-void inserir(Fita** memoria, int blocos_ocupados);
 void remover(Fita** memoria, int menu);
-//StructBusca *buscar(Fita** memoria, int menu);
+
 void printar_arquivo(Fita** memoria, Fita *no_atual);
 
 #endif
