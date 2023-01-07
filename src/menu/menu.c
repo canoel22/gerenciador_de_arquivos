@@ -8,11 +8,11 @@
 int tela_inicial(Fita** memoria, int *blocos_ocupados, Arquivos **lista)
 {
     int menu = 1;
-    while (menu != 5)
+    while (menu != 6)
     {
         system("clear");
         printf("Bem vindo ao sistema gerenciador de arquivos de texto!\n");
-        printf("\n(1) Inserir elemento\n(2) Remover elemento\n(3) Buscar elemento\n(4) Imprimir lista\n(5) Sair\n\nDigite a opção que deseja: ");
+        printf("\n(1) Inserir elemento\n(2) Remover elemento\n(3) Buscar elemento\n(4) Imprimir memória\n(5) Imprimir lista de arquivos\n(6) Sair\n\nDigite a opção que deseja: ");
         scanf("%d", &menu);
 
         switch (menu)
@@ -27,11 +27,15 @@ int tela_inicial(Fita** memoria, int *blocos_ocupados, Arquivos **lista)
             break;
 
         case 3:
-            buscar(memoria, menu, lista);
+            buscar(memoria, lista);
             break;
 
         case 4:
-            printar(memoria);
+            printar_fita(memoria);
+            break;        
+        
+        case 5:
+            printar_lista(lista);
             break;
 
 

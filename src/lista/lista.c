@@ -62,7 +62,7 @@ void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista) {
     }
 
     printf("Aquivo inserido perfeitamente! :)\n");
-    sleep(5);
+    sleep(3);
     system("clear");
 
 }
@@ -108,69 +108,67 @@ void remover(Fita **memoria, int menu)
 
 /********************************* Buscar ***********************************************/
 
-int *buscar(Fita **memoria, int menu, Arquivos **lista)
+int buscar(Fita **memoria, Arquivos **lista)
 {
     char chave[50];
     int i = 0;
-    Arquivos *no_atual = lista[i]; 
+    Arquivos *no_atual; 
 
     system("clear");
 
     printf("Digite o nome arquivo: ");
     scanf("%s", chave);
 
-    if (no_atual == NULL)
-    {
-        printf("\nA lista está vazia...\nQue tal adicionar um arquivo através da opção (1) do menu?\n");
-        sleep(4);
-        return 0;
-    }
-
-    while (no_atual != NULL && strcmp(no_atual->nome_arquivo, chave) != 0)
-        no_atual[i]= no_atual[i+1];
-
-    if (no_atual != NULL)
-    {
-        if (menu == 3){
-            //printar_arquivo(memoria, no_atual);
-            printf("achei o arquivo");
+    for (i=0; i<TAM_MEMORIA; i++){
+        no_atual = lista[i];
+        if (no_atual != NULL && strcmp(chave, no_atual->nome_arquivo) == 0){
+            printf("Achei aqui\n");
+            sleep(3);
+            return no_atual->indice_inicial;
         }
-        if (menu == 2)
-        {
-            printf("\nArquivo encontrado pra remoção...");
-            /*remove_arquivo->ant = no_anterior;
-            remove_arquivo->atual = no_atual;
-            return remove_arquivo;*/
-        }
-    }
-    else
-    {
-        printf("O arquivo não está aqui :(\nQue tal procurar por outro?\n");
-        sleep(4);
-    }
+        /*printf("bolinha de queijo");
+        sleep(3);*/
+    } 
+
+    printf("O arquivo não está aqui... Que tal adicioná-lo através da opção (1) do menu?\n");
+
 }
 
-/******************************* Imprimir a lista *********************************************/
+/***************************** Imprimir listas pra teste ******************************************/
 
-void printar(Fita **memoria)
+void printar_fita(Fita **memoria)
 {
-   /* system("clear");
+    system("clear");
+    int i =0;
+    Fita *no_atual;
 
-    No *cab = memoria->cab;
-    int cont = 1;
-
-    while (cab != NULL)
-    {
-        printf("-> Nó %d\nNome do arquivo: %s\nEndereço: %p\n", cont, cab->nome_arquivo, cab);
-        printf("Conteúdo do arquivo: %s\n\n", cab->arquivo);
-        cab = cab->indice;
-        cont++;
+    for (i=0; i<TAM_MEMORIA; i++){
+        no_atual = memoria[i];
+        if (no_atual != NULL){
+            printf("-> Nó %d\nNome do arquivo: %s\nEndereço: %p\n", i, no_atual->nome_arquivo, no_atual);
+            printf("Conteúdo do arquivo: %s\n\n", no_atual->arquivo);
+        }
     }
-    printf("\nTamanho da lista: %d\n\n", memoria->tam);
-
     printf("\n\nDigite enter para sair.");
     scanf("%*c");
-    getchar();*/
+    getchar();
+
+} 
+void printar_lista(Arquivos **lista){
+    system("clear");
+    int i =0;
+    Arquivos *no_atual;
+
+    for (i=0; i<TAM_MEMORIA; i++){
+        no_atual = lista[i];
+        if (no_atual != NULL){
+            printf("-> Nó %d\nNome do arquivo: %s\nQtd de blocos: %d\n", i, no_atual->nome_arquivo, no_atual->qtd_blocos);
+            printf("Índice inicial: %d\n\n", no_atual->indice_inicial);
+        }
+    }
+    printf("\n\nDigite enter para sair.");
+    scanf("%*c");
+    getchar();
 }
 
 /******************************* Imprimir arquivo *********************************************/

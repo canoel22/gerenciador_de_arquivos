@@ -33,9 +33,11 @@ void limpar_memoria(Fita** memoria);
 void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista);
 int inserir_bloco(Fita** memoria, char* bloco, char* nome_arquivo, int* blocos_ocupados);
 
-int *buscar(Fita** memoria, int menu, Arquivos **lista);
+int buscar(Fita** memoria, Arquivos **lista);
 
-void printar(Fita **memoria);
+void printar_fita(Fita **memoria);
+void printar_lista(Arquivos **lista);
+
 void printar_arquivo(Fita **memoria, Fita *no_atual);
 void remover(Fita** memoria, int menu);
 
