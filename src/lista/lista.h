@@ -31,6 +31,7 @@ typedef struct {    //estrutura para guardar informações do arquivo
 void limpar_memoria(Fita** memoria);
 void limpar_lista(Arquivos **lista);
 
+int pode_inserir(Fita **memoria, int *blocos_ocupados, char *nome_arquivo);
 void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista, int menu);
 int inserir_bloco(Fita** memoria, char* bloco, char* nome_arquivo, int* blocos_ocupados);
 

@@ -21,17 +21,44 @@ void limpar_lista(Arquivos **lista)
 }
 
 /********************************* Inserir ***********************************************/
-void inserir(Fita** memoria, int *blocos_ocupados, Arquivos* lista[], int menu) {
 
+int pode_inserir(Fita **memoria, int *blocos_ocupados, char *nome_arquivo) {
+    FILE *arquivo = fopen(nome_arquivo, "r");
+    char bloco[50];
+    int contador = 0;
+
+    if (arquivo == NULL){
+        return 0;
+    }
+
+    while (!feof(arquivo)) {
+        fgets(bloco, 50, arquivo);
+        contador++;
+    }
+
+    fclose(arquivo);
+
+    return(TAM_MEMORIA - *blocos_ocupados >= contador);
+}
+
+void inserir(Fita** memoria, int *blocos_ocupados, Arquivos** lista, int menu) {
     char nome_arquivo[TAM_NOME];
     char bloco[TAM_BLOCO];
     int cont = 0;
     FILE* arquivo;
+
     do
     {
         system("clear");
         printf("Digite o nome do arquivo que deseja inserir: ");
         scanf("%s", nome_arquivo);
+
+        if (!pode_inserir(memoria, blocos_ocupados, nome_arquivo)) {
+            printf("Memoria excedida... Que tal remover um arquivo primeiro? :(\n");
+            sleep(3);
+            return;
+        }
+
         arquivo = fopen(nome_arquivo, "r");
 
         if (arquivo == NULL) {
@@ -42,17 +69,11 @@ void inserir(Fita** memoria, int *blocos_ocupados, Arquivos* lista[], int menu) 
 
         while (!feof(arquivo)) {
             fgets(bloco, TAM_BLOCO, arquivo);
-            *blocos_ocupados +=1;
             cont++;
-
-            if(inserir_bloco(memoria, bloco, nome_arquivo, blocos_ocupados) == 0){
-                remover(memoria, lista, menu, blocos_ocupados);
-                printf("A memória já está cheia...Que tal remover um arquivo antes? :(\n");
-                sleep(3);
-                fclose (arquivo);
-                return;
-            }
+            inserir_bloco(memoria, bloco, nome_arquivo, blocos_ocupados);
+            *blocos_ocupados +=1;
         }
+
         break;
     } while (1);
 
@@ -63,7 +84,7 @@ void inserir(Fita** memoria, int *blocos_ocupados, Arquivos* lista[], int menu) 
     for (int k=0; k<TAM_MEMORIA; k++){
         if (lista[k] == NULL){
             Arquivos *novo_arquivo = (Arquivos*)malloc(sizeof(Arquivos));
-            strcpy(novo_arquivo-> nome_arquivo, nome_arquivo);
+            strcpy(novo_arquivo-> nome_arquivo, nome_arquivo);        
             novo_arquivo -> qtd_blocos = cont;
             novo_arquivo -> indice_inicial = arquivo_indice1;
             lista[k] = novo_arquivo;
@@ -72,15 +93,11 @@ void inserir(Fita** memoria, int *blocos_ocupados, Arquivos* lista[], int menu) 
     }
 
     printf("Aquivo inserido perfeitamente! :)\n");
-    printf("%d/100 da memória ocupada", *blocos_ocupados);
-
-    printar_lista(lista);
+    printf("%d/100 da memória ocupada\n", *blocos_ocupados);
 
     sleep(3);
     system("clear");
-
 }
-
 
 int inserir_bloco(Fita** memoria, char* bloco, char* nome_arquivo, int *blocos_ocupados){
     if (*blocos_ocupados == TAM_MEMORIA) {
@@ -90,7 +107,9 @@ int inserir_bloco(Fita** memoria, char* bloco, char* nome_arquivo, int *blocos_o
     static int no_ant = 0;
     int no_atual = 0;
 
-    while (no_atual < TAM_MEMORIA && memoria[no_atual]->arquivo != NULL) {
+    if (*blocos_ocupados == 0) no_ant = 0;
+
+    while (no_atual < TAM_MEMORIA && memoria[no_atual] != NULL) {
         no_atual++;
     }
 
@@ -98,8 +117,8 @@ int inserir_bloco(Fita** memoria, char* bloco, char* nome_arquivo, int *blocos_o
     strcpy(memoria[no_atual]->nome_arquivo, nome_arquivo);
     strcpy(memoria[no_atual]->arquivo, bloco);
 
-    if (strcmp(memoria[no_atual]-> nome_arquivo,nome_arquivo) != 0) {
-        memoria[no_atual]-> indice_prox = -1;
+    if (strcmp(memoria[no_ant]-> nome_arquivo,nome_arquivo) != 0) {
+        memoria[no_ant]-> indice_prox = -1;
         no_ant = no_atual;
         arquivo_indice1 = no_atual;
     } else if (no_ant != no_atual) {
@@ -107,9 +126,7 @@ int inserir_bloco(Fita** memoria, char* bloco, char* nome_arquivo, int *blocos_o
         no_ant = no_atual;
     }
 
-    blocos_ocupados += 1;
     return 1;
-
 }
 /********************************* Remover ***********************************************/
 
@@ -117,7 +134,7 @@ void remover(Fita **memoria, Arquivos **lista, int menu, int *blocos_ocupados)
 {
     Arquivos *inicio = (buscar(memoria, lista, menu));
     
-    if (inicio== NULL){
+    if (inicio == NULL){
         return;
     }
 
@@ -125,19 +142,18 @@ void remover(Fita **memoria, Arquivos **lista, int menu, int *blocos_ocupados)
     char* nome = inicio -> nome_arquivo;
     int tam = inicio -> qtd_blocos;
 
-    Fita aux = *memoria[i];
+    Fita* aux = memoria[i];
 
     for(int j = 0; j < tam; j++){
         memoria[i] = NULL;
-        i = memoria[i]->indice_prox;
-        free(memoria[i]);
-        aux = *memoria[i];
+        i = aux->indice_prox;
+        free(aux);
+        aux = memoria[i];
         *blocos_ocupados -= 1;
-
     }
-
-    inicio = NULL;
+    
     free(inicio);
+    inicio = NULL;
     printf("Arquivo removido perfeitamente! :)\n");
     sleep(3);
     return;
@@ -153,29 +169,33 @@ Arquivos *buscar(Fita **memoria, Arquivos **lista, int menu)
 
     system("clear");
 
-    printf("Digite o nome arquivo: ");
-    scanf("%s", chave);
+    if(menu != 1){
+        printf("Digite o nome arquivo: ");
+        scanf("%s", chave);
+    }
 
     for (i=0; i<TAM_MEMORIA; i++){
         no_atual = lista[i];
         if (no_atual != NULL && strcmp(chave, no_atual->nome_arquivo) == 0){
             if (menu == 2){
                 printf("\nArquivo encontrado...\n");
+                lista[i] = NULL;
                 sleep(3);
                 return no_atual;
             }else{
-                printf("oi");
                 printar_arquivo(memoria, no_atual);
-                break;
+                return NULL;
             }
         }
 
     } 
 
-    printf("O arquivo não está aqui... Que tal adicioná-lo através da opção (1) do menu?\n");
-    sleep(3);
-    return NULL;
+    if(menu != 1){
+        printf("O arquivo não está aqui... Que tal adicioná-lo através da opção (1) do menu?\n");
+        sleep(3);
+    }
 
+    return NULL;
 }
 
 /***************************** Imprimir listas pra teste ******************************************/
@@ -198,7 +218,7 @@ void printar_fita(Fita **memoria)
     getchar();
 
 } 
-void printar_lista(Arquivos* lista[]){
+void printar_lista(Arquivos** lista){
     system("clear");
     int i =0;
     Arquivos *no_atual;
