@@ -5,7 +5,7 @@
 
 /********************************* Menu ***********************************************/
 
-int tela_inicial(Fita** memoria, int *blocos_ocupados, Arquivos** lista)
+int tela_inicial(Fita **memoria, int *blocos_ocupados, Arquivos **lista)
 {
     int menu = 1;
     while (menu != 6)
@@ -17,7 +17,7 @@ int tela_inicial(Fita** memoria, int *blocos_ocupados, Arquivos** lista)
 
         switch (menu)
         {
-        case 1:    
+        case 1:
             inserir(memoria, blocos_ocupados, lista, menu);
             break;
 
@@ -31,12 +31,11 @@ int tela_inicial(Fita** memoria, int *blocos_ocupados, Arquivos** lista)
 
         case 4:
             printar_fita(memoria);
-            break;        
-        
+            break;
+
         case 5:
             printar_lista(lista);
             break;
-
 
         default:
             system("clear");
@@ -44,6 +43,5 @@ int tela_inicial(Fita** memoria, int *blocos_ocupados, Arquivos** lista)
             break;
         }
         return 0;
-        
     }
 }

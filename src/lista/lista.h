@@ -13,14 +13,15 @@ static int arquivo_indice1;
 
 /******************************* Estruturas ***********************************************/
 
-typedef struct Bloco {    //estrutura de cada nó
+typedef struct Bloco
+{ // estrutura de cada nó
     char arquivo[TAM_MEMORIA];
     int indice_prox;
     char nome_arquivo[TAM_NOME];
 } Fita;
 
-
-typedef struct {    //estrutura para guardar informações do arquivo
+typedef struct
+{ // estrutura para guardar informações do arquivo
     int qtd_blocos;
     char nome_arquivo[TAM_NOME];
     int indice_inicial;
@@ -28,14 +29,14 @@ typedef struct {    //estrutura para guardar informações do arquivo
 
 /********************************* Funções ***********************************************/
 
-void limpar_memoria(Fita** memoria);
+void limpar_memoria(Fita **memoria);
 void limpar_lista(Arquivos **lista);
 
 int pode_inserir(Fita **memoria, int *blocos_ocupados, char *nome_arquivo);
-void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista, int menu);
-int inserir_bloco(Fita** memoria, char* bloco, char* nome_arquivo, int* blocos_ocupados);
+void inserir(Fita **memoria, int *blocos_ocupados, Arquivos **lista, int menu);
+int inserir_bloco(Fita **memoria, char *bloco, char *nome_arquivo, int *blocos_ocupados);
 
-Arquivos *buscar(Fita** memoria, Arquivos **lista, int menu);
+Arquivos *buscar(Fita **memoria, Arquivos **lista, int menu);
 
 void printar_fita(Fita **memoria);
 void printar_lista(Arquivos **lista);
