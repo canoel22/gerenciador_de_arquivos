@@ -18,16 +18,15 @@ int tela_inicial(Fita** memoria, int *blocos_ocupados, Arquivos **lista)
         switch (menu)
         {
         case 1:    
-            inserir(memoria, blocos_ocupados, lista);
-            printf("%d", *blocos_ocupados);
+            inserir(memoria, blocos_ocupados, lista, menu);
             break;
 
         case 2:
-            remover(memoria, menu);
+            remover(memoria, lista, menu, blocos_ocupados);
             break;
 
         case 3:
-            buscar(memoria, lista);
+            buscar(memoria, lista, menu);
             break;
 
         case 4:

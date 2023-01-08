@@ -12,8 +12,16 @@ void limpar_memoria(Fita **memoria)
     }
 }
 
+void limpar_lista(Arquivos **lista)
+{
+    for (int i = 0; i < TAM_BLOCO; i++)
+    {
+        lista[i] = NULL;
+    }
+}
+
 /********************************* Inserir ***********************************************/
-void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista) {
+void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista, int menu) {
 
     char nome_arquivo[TAM_NOME];
     char bloco[TAM_BLOCO];
@@ -38,6 +46,7 @@ void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista) {
             cont++;
 
             if(inserir_bloco(memoria, bloco, nome_arquivo, blocos_ocupados) == 0){
+                remover(memoria, lista, menu, blocos_ocupados);
                 printf("A memória já está cheia...Que tal remover um arquivo antes? :(\n");
                 sleep(3);
                 fclose (arquivo);
@@ -51,17 +60,21 @@ void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista) {
 
     //passando os metadados do arquivo pra lista 2:
 
-    for (int i=0; i<TAM_MEMORIA; i++){
-        if (lista[i] == NULL){
+    for (int k=0; k<TAM_MEMORIA; k++){
+        if (lista[k] == NULL){
             Arquivos *novo_arquivo = (Arquivos*)malloc(sizeof(Arquivos));
             strcpy(novo_arquivo-> nome_arquivo, nome_arquivo);
-            novo_arquivo -> qtd_blocos= cont;
+            novo_arquivo -> qtd_blocos = cont;
             novo_arquivo -> indice_inicial = arquivo_indice1;
             break;
         }
     }
 
     printf("Aquivo inserido perfeitamente! :)\n");
+    printf("%d/100 da memória ocupada", *blocos_ocupados);
+
+    printar_lista(lista);
+    
     sleep(3);
     system("clear");
 
@@ -99,16 +112,39 @@ int inserir_bloco(Fita** memoria, char* bloco, char* nome_arquivo, int *blocos_o
 }
 /********************************* Remover ***********************************************/
 
-void remover(Fita **memoria, int menu)
+void remover(Fita **memoria, Arquivos **lista, int menu, int *blocos_ocupados)
 {
-    //buscar(memoria, menu);
+    Arquivos *inicio = (buscar(memoria, lista, menu));
+    
+    if (inicio== NULL){
+        return;
+    }
+
+    int i = inicio -> indice_inicial;
+    char* nome = inicio -> nome_arquivo;
+    int tam = inicio -> qtd_blocos;
+
+    Fita aux = *memoria[i];
+
+    for(int j = 0; j < tam; j++){
+        memoria[i] = NULL;
+        i = memoria[i]->indice_prox;
+        free(memoria[i]);
+        aux = *memoria[i];
+        *blocos_ocupados -= 1;
+
+    }
+
+    inicio = NULL;
+    free(inicio);
     printf("Arquivo removido perfeitamente! :)\n");
     sleep(3);
+    return;
 }
 
 /********************************* Buscar ***********************************************/
 
-int buscar(Fita **memoria, Arquivos **lista)
+Arquivos *buscar(Fita **memoria, Arquivos **lista, int menu)
 {
     char chave[50];
     int i = 0;
@@ -122,15 +158,22 @@ int buscar(Fita **memoria, Arquivos **lista)
     for (i=0; i<TAM_MEMORIA; i++){
         no_atual = lista[i];
         if (no_atual != NULL && strcmp(chave, no_atual->nome_arquivo) == 0){
-            printf("Achei aqui\n");
-            sleep(3);
-            return no_atual->indice_inicial;
+            if (menu == 2){
+                printf("\nArquivo encontrado...\n");
+                sleep(3);
+                return no_atual;
+            }else{
+                printf("oi");
+                //printar_arquivo(memoria, no_atual);
+                break;
+            }
         }
-        /*printf("bolinha de queijo");
-        sleep(3);*/
+
     } 
 
     printf("O arquivo não está aqui... Que tal adicioná-lo através da opção (1) do menu?\n");
+    sleep(3);
+    return NULL;
 
 }
 
@@ -155,7 +198,7 @@ void printar_fita(Fita **memoria)
 
 } 
 void printar_lista(Arquivos **lista){
-    system("clear");
+    //system("clear");
     int i =0;
     Arquivos *no_atual;
 
@@ -175,9 +218,9 @@ void printar_lista(Arquivos **lista){
 
 void printar_arquivo(Fita **memoria, Fita *no_atual)
 {
-    /*system("clear");
+   /*system("clear");
     printf("Achei! O arquivo está aqui:\n");
-    /*No *cab = memoria->cab;
+    No *cab = memoria->cab;
     int cont = 1;
 
     while (no_atual == 1)

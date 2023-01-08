@@ -10,6 +10,7 @@ int main()
     int blocos_ocupados = 0;
 
     Arquivos *lista[TAM_MEMORIA]; //vetor que armazena os dados sobre os arquivos
+    limpar_lista(lista);
 
     while (1)
     {
