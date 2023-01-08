@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Gerenciador de arquivos: Código-Fonte de src/lista/lista.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Gerenciador de arquivos
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Protótipo de um sistema gerenciador de arquivo de texto - Por Carine</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Busca','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Busca');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_80a100fa9dd9fee60e4b07f9ac12df3e.html">lista</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">lista.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="lista_8h.html">Vá para a documentação desse arquivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef __lista_h</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define __lista_h</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="lista_8h.html#abb75a171a7455ec2681e670b0af761f5">    8</a></span>&#160;<span class="preprocessor">#define TAM_MEMORIA 100</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="lista_8h.html#ad0e480e07eae04b077948c75deb75422">    9</a></span>&#160;<span class="preprocessor">#define TAM_NOME 50</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="lista_8h.html#a6049ec9d9f6fb6c4e938a42cdbfc5028">   10</a></span>&#160;<span class="preprocessor">#define TAM_BLOCO 100</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">static</span> <span class="keywordtype">int</span> arquivo_indice1;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">/******************************* Estruturas ***********************************************/</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="struct_bloco.html">   17</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct_bloco.html">Bloco</a></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{ </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="struct_bloco.html#a8de290cf1a2983aeb8c23a3af07db5a5">   19</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="struct_bloco.html#a8de290cf1a2983aeb8c23a3af07db5a5">arquivo</a>[<a class="code" href="lista_8h.html#abb75a171a7455ec2681e670b0af761f5">TAM_MEMORIA</a>];</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="struct_bloco.html#a50d952a70f78debd04189c77dfedc1dd">   20</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="struct_bloco.html#a50d952a70f78debd04189c77dfedc1dd">indice_prox</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="struct_bloco.html#a8ca7760bf2071e60b6783f90d94e0bac">   21</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="struct_bloco.html#a8ca7760bf2071e60b6783f90d94e0bac">nome_arquivo</a>[<a class="code" href="lista_8h.html#ad0e480e07eae04b077948c75deb75422">TAM_NOME</a>];</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="lista_8h.html#a7067573a1978a645f57dcb9fd25cca8a">   22</a></span>&#160;} <a class="code" href="lista_8h.html#a7067573a1978a645f57dcb9fd25cca8a">Fita</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="struct_arquivos.html">   25</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{ </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="struct_arquivos.html#ac7da9ee446f4ece4a32d8637c39f8540">   27</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="struct_arquivos.html#ac7da9ee446f4ece4a32d8637c39f8540">qtd_blocos</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="struct_arquivos.html#a8ca7760bf2071e60b6783f90d94e0bac">   28</a></span>&#160;    <span class="keywordtype">char</span> nome_arquivo[<a class="code" href="lista_8h.html#ad0e480e07eae04b077948c75deb75422">TAM_NOME</a>];</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="struct_arquivos.html#af227d994a543a1f15bccb9d41650099e">   29</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="struct_arquivos.html#af227d994a543a1f15bccb9d41650099e">indice_inicial</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <a class="code" href="struct_arquivos.html">Arquivos</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">/********************************* Funções ***********************************************/</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> <a class="code" href="lista_8h.html#a5cb070acb993536c8c589bfe2925cc12">limpar_memoria</a>(<a class="code" href="struct_bloco.html">Fita</a> **memoria);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">void</span> <a class="code" href="lista_8h.html#a9ffbf5d308247ef09702649721ff0441">limpar_lista</a>(<a class="code" href="struct_arquivos.html">Arquivos</a> **lista);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">int</span> <a class="code" href="lista_8h.html#a05da562c5a265c58f5c578ff2b4d413e">pode_inserir</a>(<a class="code" href="struct_bloco.html">Fita</a> **memoria, <span class="keywordtype">int</span> *blocos_ocupados, <span class="keywordtype">char</span> *nome_arquivo);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> <a class="code" href="lista_8h.html#a9a0b5bf5be9b44f20fa81373e18de140">inserir</a>(<a class="code" href="struct_bloco.html">Fita</a> **memoria, <span class="keywordtype">int</span> *blocos_ocupados, <a class="code" href="struct_arquivos.html">Arquivos</a> **lista);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">int</span> <a class="code" href="lista_8h.html#a904ae164a58e8e8fd8876309f592a6a2">inserir_bloco</a>(<a class="code" href="struct_bloco.html">Fita</a> **memoria, <span class="keywordtype">char</span> *bloco, <span class="keywordtype">char</span> *nome_arquivo, <span class="keywordtype">int</span> *blocos_ocupados);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<a class="code" href="struct_arquivos.html">Arquivos</a> *<a class="code" href="lista_8h.html#a4276c9feea07fe4cf7587b7038f62b43">buscar</a>(<a class="code" href="struct_bloco.html">Fita</a> **memoria, <a class="code" href="struct_arquivos.html">Arquivos</a> **lista, <span class="keywordtype">int</span> menu);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keywordtype">void</span> <a class="code" href="lista_8h.html#a23a4104699e5da806b0a260dc7cb9760">printar_fita</a>(<a class="code" href="struct_bloco.html">Fita</a> **memoria);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">void</span> <a class="code" href="lista_8h.html#a6e94c4325baf941e6efc35570aac7df6">printar_lista</a>(<a class="code" href="struct_arquivos.html">Arquivos</a> **lista);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keywordtype">void</span> <a class="code" href="lista_8h.html#a3b5ba813fd42382551f17c689f691344">printar_arquivo</a>(<a class="code" href="struct_bloco.html">Fita</a> **memoria, <a class="code" href="struct_arquivos.html">Arquivos</a> *no_atual);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keywordtype">void</span> <a class="code" href="lista_8h.html#a63dab7d1225ce9085840ff1358b22647">remover</a>(<a class="code" href="struct_bloco.html">Fita</a> **memoria, <a class="code" href="struct_arquivos.html">Arquivos</a> **lista, <span class="keywordtype">int</span> menu, <span class="keywordtype">int</span> *blocos_ocupados);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="alista_8h_html_a05da562c5a265c58f5c578ff2b4d413e"><div class="ttname"><a href="lista_8h.html#a05da562c5a265c58f5c578ff2b4d413e">pode_inserir</a></div><div class="ttdeci">int pode_inserir(Fita **memoria, int *blocos_ocupados, char *nome_arquivo)</div><div class="ttdoc">verifica se a quantidade de blocos livres é &gt;= à quantidade necessária de blocos para inserir o novo ...</div><div class="ttdef"><b>Definition:</b> lista.c:25</div></div>
+<div class="ttc" id="alista_8h_html_a23a4104699e5da806b0a260dc7cb9760"><div class="ttname"><a href="lista_8h.html#a23a4104699e5da806b0a260dc7cb9760">printar_fita</a></div><div class="ttdeci">void printar_fita(Fita **memoria)</div><div class="ttdoc">printa a fita de memória, com todos os arquivos armazenados e algumas informações sobre eles</div><div class="ttdef"><b>Definition:</b> lista.c:228</div></div>
+<div class="ttc" id="alista_8h_html_a3b5ba813fd42382551f17c689f691344"><div class="ttname"><a href="lista_8h.html#a3b5ba813fd42382551f17c689f691344">printar_arquivo</a></div><div class="ttdeci">void printar_arquivo(Fita **memoria, Arquivos *no_atual)</div><div class="ttdoc">printa apenas o arquivo selecionado na função buscar</div><div class="ttdef"><b>Definition:</b> lista.c:269</div></div>
+<div class="ttc" id="alista_8h_html_a4276c9feea07fe4cf7587b7038f62b43"><div class="ttname"><a href="lista_8h.html#a4276c9feea07fe4cf7587b7038f62b43">buscar</a></div><div class="ttdeci">Arquivos * buscar(Fita **memoria, Arquivos **lista, int menu)</div><div class="ttdoc">busca um arquivo na lista de arquivos</div><div class="ttdef"><b>Definition:</b> lista.c:183</div></div>
+<div class="ttc" id="alista_8h_html_a5cb070acb993536c8c589bfe2925cc12"><div class="ttname"><a href="lista_8h.html#a5cb070acb993536c8c589bfe2925cc12">limpar_memoria</a></div><div class="ttdeci">void limpar_memoria(Fita **memoria)</div><div class="ttdoc">limpa o vetor para não haver chance de armazenar algum lixo</div><div class="ttdef"><b>Definition:</b> lista.c:7</div></div>
+<div class="ttc" id="alista_8h_html_a63dab7d1225ce9085840ff1358b22647"><div class="ttname"><a href="lista_8h.html#a63dab7d1225ce9085840ff1358b22647">remover</a></div><div class="ttdeci">void remover(Fita **memoria, Arquivos **lista, int menu, int *blocos_ocupados)</div><div class="ttdoc">remove um arquivo desejado</div><div class="ttdef"><b>Definition:</b> lista.c:150</div></div>
+<div class="ttc" id="alista_8h_html_a6e94c4325baf941e6efc35570aac7df6"><div class="ttname"><a href="lista_8h.html#a6e94c4325baf941e6efc35570aac7df6">printar_lista</a></div><div class="ttdeci">void printar_lista(Arquivos **lista)</div><div class="ttdoc">printa a lista dos arquivos cadastrados, com algumas informações essenciais para encontrá-los</div><div class="ttdef"><b>Definition:</b> lista.c:247</div></div>
+<div class="ttc" id="alista_8h_html_a7067573a1978a645f57dcb9fd25cca8a"><div class="ttname"><a href="lista_8h.html#a7067573a1978a645f57dcb9fd25cca8a">Fita</a></div><div class="ttdeci">struct Bloco Fita</div><div class="ttdoc">estrutura de cada bloco de memória que guarda conteúdo dos arquivos</div></div>
+<div class="ttc" id="alista_8h_html_a904ae164a58e8e8fd8876309f592a6a2"><div class="ttname"><a href="lista_8h.html#a904ae164a58e8e8fd8876309f592a6a2">inserir_bloco</a></div><div class="ttdeci">int inserir_bloco(Fita **memoria, char *bloco, char *nome_arquivo, int *blocos_ocupados)</div><div class="ttdoc">divide o arquivo em blocos e os cadastra na memória</div><div class="ttdef"><b>Definition:</b> lista.c:110</div></div>
+<div class="ttc" id="alista_8h_html_a9a0b5bf5be9b44f20fa81373e18de140"><div class="ttname"><a href="lista_8h.html#a9a0b5bf5be9b44f20fa81373e18de140">inserir</a></div><div class="ttdeci">void inserir(Fita **memoria, int *blocos_ocupados, Arquivos **lista)</div><div class="ttdoc">insere (ou não) o arquivo nos blocos e atualiza a lista de arquivos</div><div class="ttdef"><b>Definition:</b> lista.c:47</div></div>
+<div class="ttc" id="alista_8h_html_a9ffbf5d308247ef09702649721ff0441"><div class="ttname"><a href="lista_8h.html#a9ffbf5d308247ef09702649721ff0441">limpar_lista</a></div><div class="ttdeci">void limpar_lista(Arquivos **lista)</div><div class="ttdoc">limpa o vetor para não haver chance de armazenar algum lixo</div><div class="ttdef"><b>Definition:</b> lista.c:15</div></div>
+<div class="ttc" id="alista_8h_html_abb75a171a7455ec2681e670b0af761f5"><div class="ttname"><a href="lista_8h.html#abb75a171a7455ec2681e670b0af761f5">TAM_MEMORIA</a></div><div class="ttdeci">#define TAM_MEMORIA</div><div class="ttdef"><b>Definition:</b> lista.h:8</div></div>
+<div class="ttc" id="alista_8h_html_ad0e480e07eae04b077948c75deb75422"><div class="ttname"><a href="lista_8h.html#ad0e480e07eae04b077948c75deb75422">TAM_NOME</a></div><div class="ttdeci">#define TAM_NOME</div><div class="ttdef"><b>Definition:</b> lista.h:9</div></div>
+<div class="ttc" id="astruct_arquivos_html"><div class="ttname"><a href="struct_arquivos.html">Arquivos</a></div><div class="ttdoc">estrutura para guardar informações de cada arquivo</div><div class="ttdef"><b>Definition:</b> lista.h:26</div></div>
+<div class="ttc" id="astruct_arquivos_html_ac7da9ee446f4ece4a32d8637c39f8540"><div class="ttname"><a href="struct_arquivos.html#ac7da9ee446f4ece4a32d8637c39f8540">Arquivos::qtd_blocos</a></div><div class="ttdeci">int qtd_blocos</div><div class="ttdef"><b>Definition:</b> lista.h:27</div></div>
+<div class="ttc" id="astruct_arquivos_html_af227d994a543a1f15bccb9d41650099e"><div class="ttname"><a href="struct_arquivos.html#af227d994a543a1f15bccb9d41650099e">Arquivos::indice_inicial</a></div><div class="ttdeci">int indice_inicial</div><div class="ttdef"><b>Definition:</b> lista.h:29</div></div>
+<div class="ttc" id="astruct_bloco_html"><div class="ttname"><a href="struct_bloco.html">Bloco</a></div><div class="ttdoc">estrutura de cada bloco de memória que guarda conteúdo dos arquivos</div><div class="ttdef"><b>Definition:</b> lista.h:18</div></div>
+<div class="ttc" id="astruct_bloco_html_a50d952a70f78debd04189c77dfedc1dd"><div class="ttname"><a href="struct_bloco.html#a50d952a70f78debd04189c77dfedc1dd">Bloco::indice_prox</a></div><div class="ttdeci">int indice_prox</div><div class="ttdef"><b>Definition:</b> lista.h:20</div></div>
+<div class="ttc" id="astruct_bloco_html_a8ca7760bf2071e60b6783f90d94e0bac"><div class="ttname"><a href="struct_bloco.html#a8ca7760bf2071e60b6783f90d94e0bac">Bloco::nome_arquivo</a></div><div class="ttdeci">char nome_arquivo[TAM_NOME]</div><div class="ttdef"><b>Definition:</b> lista.h:21</div></div>
+<div class="ttc" id="astruct_bloco_html_a8de290cf1a2983aeb8c23a3af07db5a5"><div class="ttname"><a href="struct_bloco.html#a8de290cf1a2983aeb8c23a3af07db5a5">Bloco::arquivo</a></div><div class="ttdeci">char arquivo[TAM_MEMORIA]</div><div class="ttdef"><b>Definition:</b> lista.h:19</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado por&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>
