@@ -21,7 +21,7 @@ void limpar_lista(Arquivos **lista)
 }
 
 /********************************* Inserir ***********************************************/
-void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista, int menu) {
+void inserir(Fita** memoria, int *blocos_ocupados, Arquivos* lista[], int menu) {
 
     char nome_arquivo[TAM_NOME];
     char bloco[TAM_BLOCO];
@@ -66,6 +66,7 @@ void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista, int menu) {
             strcpy(novo_arquivo-> nome_arquivo, nome_arquivo);
             novo_arquivo -> qtd_blocos = cont;
             novo_arquivo -> indice_inicial = arquivo_indice1;
+            lista[k] = novo_arquivo;
             break;
         }
     }
@@ -74,7 +75,7 @@ void inserir(Fita** memoria, int *blocos_ocupados, Arquivos **lista, int menu) {
     printf("%d/100 da memória ocupada", *blocos_ocupados);
 
     printar_lista(lista);
-    
+
     sleep(3);
     system("clear");
 
@@ -197,8 +198,8 @@ void printar_fita(Fita **memoria)
     getchar();
 
 } 
-void printar_lista(Arquivos **lista){
-    //system("clear");
+void printar_lista(Arquivos* lista[]){
+    system("clear");
     int i =0;
     Arquivos *no_atual;
 

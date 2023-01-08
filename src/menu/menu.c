@@ -5,7 +5,7 @@
 
 /********************************* Menu ***********************************************/
 
-int tela_inicial(Fita** memoria, int *blocos_ocupados, Arquivos **lista)
+int tela_inicial(Fita** memoria, int *blocos_ocupados, Arquivos* lista[])
 {
     int menu = 1;
     while (menu != 6)
