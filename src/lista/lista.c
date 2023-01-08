@@ -44,7 +44,7 @@ int pode_inserir(Fita **memoria, int *blocos_ocupados, char *nome_arquivo)
     return (TAM_MEMORIA - *blocos_ocupados >= contador);
 }
 
-void inserir(Fita **memoria, int *blocos_ocupados, Arquivos **lista, int menu)
+void inserir(Fita **memoria, int *blocos_ocupados, Arquivos **lista)
 {
     char nome_arquivo[TAM_NOME];
     char bloco[TAM_BLOCO];

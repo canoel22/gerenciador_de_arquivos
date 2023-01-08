@@ -12,13 +12,13 @@ int tela_inicial(Fita **memoria, int *blocos_ocupados, Arquivos **lista)
     {
         system("clear");
         printf("Bem vindo ao sistema gerenciador de arquivos de texto!\n");
-        printf("\n(1) Inserir elemento\n(2) Remover elemento\n(3) Buscar elemento\n(4) Imprimir memória\n(5) Imprimir lista de arquivos\n(6) Sair\n\nDigite a opção que deseja: ");
+        printf("\n(1) Inserir arquivo\n(2) Remover arquivo\n(3) Buscar arquivo\n(4) Imprimir memória\n(5) Imprimir lista de arquivos\n(6) Sair\n\nDigite a opção que deseja: ");
         scanf("%d", &menu);
 
         switch (menu)
         {
         case 1:
-            inserir(memoria, blocos_ocupados, lista, menu);
+            inserir(memoria, blocos_ocupados, lista);
             break;
 
         case 2:
