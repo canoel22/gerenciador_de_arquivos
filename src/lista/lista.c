@@ -164,7 +164,7 @@ Arquivos *buscar(Fita **memoria, Arquivos **lista, int menu)
                 return no_atual;
             }else{
                 printf("oi");
-                //printar_arquivo(memoria, no_atual);
+                printar_arquivo(memoria, no_atual);
                 break;
             }
         }
@@ -216,23 +216,22 @@ void printar_lista(Arquivos **lista){
 
 /******************************* Imprimir arquivo *********************************************/
 
-void printar_arquivo(Fita **memoria, Fita *no_atual)
+void printar_arquivo(Fita **memoria, Arquivos *no_atual)
 {
-   /*system("clear");
-    printf("Achei! O arquivo está aqui:\n");
-    No *cab = memoria->cab;
-    int cont = 1;
+    int i;
+    int cont=0;
 
-    while (no_atual == 1)
-    {
-        printf("-> Nó %d\nNome do arquivo: %s\nEndereço: %p\n", cont, cab->nome_arquivo, cab);
-        printf("Conteúdo do arquivo: %s\n\n", cab->arquivo);
-        cab = cab->prox;
-        cont++;
+    while (cont <= no_atual->qtd_blocos){
+        for (i=0; i<TAM_MEMORIA; i++){
+            if (memoria[i] != NULL && strcmp(no_atual->nome_arquivo, memoria[i]->nome_arquivo) == 0){
+                printf("-> Nó %d\nNome do arquivo: %s\nEndereço: %p\n", i, no_atual->nome_arquivo, memoria[i]);
+                printf("Conteúdo do arquivo: %s\n\n", memoria[i]->arquivo);
+                cont++;
+            }
+        }
     }
-    printf("\nTamanho da lista: %d\n\n", memoria->tam);
-
     printf("\n\nDigite enter para sair.");
     scanf("%*c");
-    getchar();*/
+    getchar();
+
 }

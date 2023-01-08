@@ -38,7 +38,7 @@ Arquivos *buscar(Fita** memoria, Arquivos **lista, int menu);
 
 void printar_fita(Fita **memoria);
 void printar_lista(Arquivos **lista);
-void printar_arquivo(Fita **memoria, Fita *no_atual);
+void printar_arquivo(Fita **memoria, Arquivos *no_atual);
 
 void remover(Fita **memoria, Arquivos **lista, int menu, int *blocos_ocupados);
 
